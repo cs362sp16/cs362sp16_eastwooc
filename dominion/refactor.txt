@@ -1,0 +1,6 @@
+4/19/2016: Refactored the following cards out of cardEffect() into their own functions:
+Smithy
+Village
+Great Hall
+Cut Purse
+Council Room

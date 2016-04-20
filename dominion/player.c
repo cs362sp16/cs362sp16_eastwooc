@@ -27,6 +27,7 @@ int main2(int argc, char *argv[]) {
 	initializeGame(2,k,1,&g);
 	printf ("SUCCESSFUL INIT\n");
 	getchar();
+	return 0;
 }
 
 int main(int argc, char* argv[]) {
@@ -59,7 +60,7 @@ int main(int argc, char* argv[]) {
 	int gameStarted = FALSE;
 	int turnNum = 0;
 
-	int randomSeed = atoi(argv[1]);
+	int randomSeed;
 
 	//Default cards, as defined in playDom
 	int kCards[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, sea_hag, tribute, smithy};
@@ -73,6 +74,8 @@ int main(int argc, char* argv[]) {
 		printf("Usage: player [integer random number seed]\n");
 		return EXIT_SUCCESS;
 	}
+
+	randomSeed = atoi(argv[1]);
 
 	if(randomSeed <= 0){
 		printf("Usage: player [integer random number seed]\n");
