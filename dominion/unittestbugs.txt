@@ -1,0 +1,3 @@
+The scoreFor() function doesn't correctly count victory/curse cards in the user's discard pile.
+Using scavenger doesn't add the cost of the discarded card to the user's buy pool
+Using remodel doesn't increase the discarded card count.  They may be added later after the card is played, so not sure if this is an actual bug.

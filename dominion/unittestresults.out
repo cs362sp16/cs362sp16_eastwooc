@@ -1,0 +1,43 @@
+WhoseTurn() test passed successfully!
+File 'dominion.c'
+Lines executed:0.36% of 557
+Creating 'dominion.c.gcov'
+
+numHandCards() test passed successfully!
+File 'dominion.c'
+Lines executed:0.72% of 557
+Creating 'dominion.c.gcov'
+
+ASSERT FAILED
+scoreFor() test FAILED
+File 'dominion.c'
+Lines executed:5.03% of 557
+Creating 'dominion.c.gcov'
+
+buyCard() test passed successfully!
+File 'dominion.c'
+Lines executed:9.69% of 557
+Creating 'dominion.c.gcov'
+
+smithy test passed successfully!
+File 'dominion.c'
+Lines executed:19.75% of 557
+Creating 'dominion.c.gcov'
+
+great hall test passed successfully!
+File 'dominion.c'
+Lines executed:20.83% of 557
+Creating 'dominion.c.gcov'
+
+ASSERT FAILED
+salvager test FAILED
+File 'dominion.c'
+Lines executed:22.08% of 557
+Creating 'dominion.c.gcov'
+
+ASSERT FAILED
+remodel test FAILED
+File 'dominion.c'
+Lines executed:24.24% of 557
+Creating 'dominion.c.gcov'
+
