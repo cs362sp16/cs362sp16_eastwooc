@@ -753,25 +753,25 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   switch( card ) 
     {
     case adventurer:
-      while(drawntreasure<2){
-    if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
-      shuffle(currentPlayer, state);
-    }
-    drawCard(currentPlayer, state);
-    cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
-    if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
-      drawntreasure++;
-    else{
-      temphand[z]=cardDrawn;
-      state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
-      z++;
-    }
-      }
-      while(z-1>=0){
-    state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
-    z=z-1;
-      }
-      return 0;
+        
+        while(drawntreasure<2){           
+            if(drawCard(currentPlayer, state) == -1)
+                break;
+            cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
+            if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
+                drawntreasure++;
+            else{
+                temphand[z]=cardDrawn;
+                state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
+                z++;
+            }
+        }
+        while(z > 0){
+            state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
+            z--;
+        }
+        discardCard(handPos, currentPlayer, state, 0);
+        return 0;
             
     case council_room:
       return councilRoomEffect(currentPlayer, handPos, state);
@@ -960,12 +960,12 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       //discard card from hand
       discardCard(handPos, currentPlayer, state, 0);
             
-      if (choice1)      //+2 coins
+      if (choice1 == 1)      //+2 coins
     {
       state->coins = state->coins + 2;
     }
             
-      else if (choice2)     //discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
+      else if (choice1 == 2)     //discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
     {
       //discard hand
       while(numHandCards(state) > 0)
