@@ -1,0 +1,4 @@
+Bug 3: Salvager doesn't add coins
+This bug was found with a very basic unit test.  Basically when using salvager, you don't get the coins for the card you trash.  This is because any modifications to the coins variable is undone when updateCoins() is called at the end of your turn.
+Priority - Medium
+Severity - Medium (at least it doesn't break the game)

@@ -1,0 +1,4 @@
+Bug 2 - Sea Hag doesn't decrease curse supply count or check that there is a card in the deck
+Also a fairly simple bug.  The first problem is that sea hag takes the top card of each player's deck and discards it, but it doesn't check to make sure there's actually a card to discard.  This leads to an invalid card being discarded and thus in play.  Having an invalid card in play causes all sorts of problems later.  The second problem is that while a curse is correctly added to the top of the deck for each player if they have at least one card in their deck, it doesn't reduce the number of curses in the supply pile.  Using a bunch of sea hags in one game thus ends up with hundreds of curses in play when that shouldn't be possible.
+Priority - High
+Severity - Severe

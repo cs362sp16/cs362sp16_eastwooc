@@ -6,6 +6,7 @@
 
 #define TRUE 1
 #define FALSE 0
+#define NUM_TESTS 20
 
 int compareFloat(const void* a, const void* b) {
 	if (*(float*)a > *(float*)b)
@@ -95,7 +96,7 @@ void buyCards(struct gameState *p, float *thresholds, int* kingdomCards) {
 			//try to buy treasure
 			card = gold;
 			while (card >= copper) {
-				ret = buyCard(kingdomCards[card], p);
+				ret = buyCard(card, p);
 				if (ret == 0) {
 					printf("Player %d bought card %d\n", whoseTurn(p), card);
 					bought = TRUE;
@@ -110,7 +111,7 @@ void buyCards(struct gameState *p, float *thresholds, int* kingdomCards) {
 			//try to buy victory point
 			card = province;
 			while (card >= estate) {
-				ret = buyCard(kingdomCards[card], p);
+				ret = buyCard(card, p);
 				if (ret == 0) {
 					printf("Player %d bought card %d\n", whoseTurn(p), card);
 					bought = TRUE;
@@ -125,7 +126,7 @@ void buyCards(struct gameState *p, float *thresholds, int* kingdomCards) {
 			//try to buy completely random card
 			for (j = 0; j < 5; j++) {
 				card = floor(Random() * (treasure_map + 4)) - 1;
-				ret = buyCard(kingdomCards[card], p);
+				ret = buyCard(card, p);
 				if (ret == 0) {
 					printf("Player %d bought card %d\n", whoseTurn(p), card);
 					bought = TRUE;
@@ -183,8 +184,8 @@ int assertShitCorrect(struct gameState *g) {
 		do {
 			count++;
 			j = g->hand[i][count];
-		} while (j > -1);
-		if (count != g->handCount[i])
+		} while (j > -1 && count < MAX_HAND);
+		if (count < g->handCount[i])
 			return -1;
 	}
 	for (i = 0; i < g->numPlayers; i++) {
@@ -192,8 +193,8 @@ int assertShitCorrect(struct gameState *g) {
 		do {
 			count++;
 			j = g->deck[i][count];
-		} while (j > -1);
-		if (count != g->deckCount[i])
+		} while (j > -1 && count < MAX_DECK);
+		if (count < g->deckCount[i])
 			return -1;
 	}
 	for (i = 0; i < g->numPlayers; i++) {
@@ -201,8 +202,8 @@ int assertShitCorrect(struct gameState *g) {
 		do {
 			count++;
 			j = g->discard[i][count];
-		} while (j > -1);
-		if (count != g->discardCount[i])
+		} while (j > -1 && count < MAX_DECK);
+		if (count < g->discardCount[i])
 			return -1;
 	}
 	return 0;
@@ -213,6 +214,7 @@ int cardCount(struct gameState *g) {
 	int ret = g->handCount[who] + g->deckCount[who] + g->discardCount[who];
 	return ret;
 }
+
 
 int main(int argc, char** argv) {
 	int i, j, card, loop, unique, seed, players, ret;
@@ -229,7 +231,7 @@ int main(int argc, char** argv) {
 	seed = atoi(argv[1]);
 	//seed = 1;
 
-	for (loop = 0; loop < 500; loop++) {
+	for (loop = 0; loop < NUM_TESTS; loop++) {
 		seed += 1;
 		//seed = 225;
 		SelectStream(2);
@@ -280,7 +282,7 @@ int main(int argc, char** argv) {
 			
 		ret = isGameOver(p);
 		while (ret == FALSE) {
-			cardCount(p);
+			//cardCount(p);
 			//occasionally buy cards first just to mess with the game
 			if (Random() < 0.02) {
 				buyCards(p, thresholds, kCards);

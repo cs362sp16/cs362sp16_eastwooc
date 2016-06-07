@@ -1,0 +1,4 @@
+Bug 1 - Buy card doesn't check bounds on supply index
+Pretty simple bug, the supplyPos parameter in the buyCard function never gets checked for bounds.  If the user tries to buy card -1, then this actually results in decreasing the number of players in the game since supplyCount[-1] contains numPlayers, and trying to gain a card from that address will decrement it.  The function should check to make sure supplyPos is between 0 and 26 (or whatever treasure_map is) inclusive, and return -1 if it isn't.
+Priority - Medium (hopefully wouldn't come up with a human player who is trying to play correctly and proper computer players)
+Severity - Severe
